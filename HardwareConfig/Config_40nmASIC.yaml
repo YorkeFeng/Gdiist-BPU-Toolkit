@@ -1,0 +1,31 @@
+TotalTileNum : 36
+X_TileNum : 6
+Y_TileNum : 6
+
+Tile_NpuNum : 16
+Npu_NeuronNum : 1024
+Npu_EdgeNum : 4096
+
+# FileType : 'bin'
+# IsAsic : True
+
+# Hardware config for FPGA
+# V_reset : -60
+# T_refrac : 6
+# V_thresh : -50
+# V_rest: -60
+# RC_decay : 0.05
+# I : 2.0
+# E1: 0
+# W_decay1: -0.2
+# E2: -80
+# W_decay2: -0.1
+
+# tw : 5000000
+# step_max : 0
+# neu_num : 1023
+# rate : 0
+# neu_tile: 16383
+# R : 1
+# total_step: 0
+# weight_phase: 33554432  # math.pow(2, 25)

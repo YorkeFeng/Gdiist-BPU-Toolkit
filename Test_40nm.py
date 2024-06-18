@@ -14,7 +14,7 @@ import numpy as np
 from loguru import logger
 
 from BrainpyAdapter.EImodel import EINet
-from SNN40nm import SNN40nmASIC
+from SNN40nm import SNN40nmASIC, SNN40nmFPGA
 
 warnings.filterwarnings("ignore")
 
@@ -54,7 +54,7 @@ def test(download_dir):
     time_list.append(t1-t0)
 
     config_dir = '/home/yorke/gdiist/git/Gdiist-BPU-Toolkit/HardwareConfig/Config_40nmASIC.yaml'
-    bpuset = SNN40nmASIC(net, I, config_file=config_dir)
+    bpuset = SNN40nmFPGA(net, I, config_file=config_dir)
     bpuset.gen_bin_data(download_dir)
     # bpuset.run(T, mode=1, upload_dir=upload_dir, reset = True)
 

@@ -15,10 +15,10 @@ import yaml
 from loguru import logger
 
 from BrainpyAdapter.BrainpyBase import BrainpyBase
-from Common.Common import SpikeWriter, convert_spike_npy_to_bin, div_round_up
+from Common.Common import SpikeWriter, div_round_up
 from Mapping.Router import Router40nm
 from Mapping.Weight import Weight40nm
-from SNNCompiler.hardware_config import HardwareConfig
+from SNNCompiler.Compiler40nm import Compiler40nmSNN
 
 
 class Debug():
@@ -85,16 +85,12 @@ class SNN40nm():
         self.debug.record_running_time(t2-t1, label='Spike bin data')
 
         # hardware config
-        hw_config = HardwareConfig(self.config, self.neuron_num, self.network)
-        hw_config.dump(download_dir)
+        compiler = Compiler40nmSNN(self.config, self.neuron_num, self.network)
+        compiler.write_to_bin(download_dir)
         t3 = time.time()
-        self.debug.record_running_time(t3-t2, label='Hardware config bin data')
+        self.debug.record_running_time(t3-t2, label='Compiler bin data')
 
         # route data dump
-        # connect_mat = list(map(lambda x: list(self.connection_matrix[x].keys(
-        # )), list(range(len(self.connection_matrix.values())))))
-        # print(connect_mat)
-
         router = Router40nm(self.config, self.neuron_num)
         router.gen_routing(self.connection_matrix)
         router.write_to_bin(download_dir)

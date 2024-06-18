@@ -12,12 +12,13 @@ from Common.Common import Fake, div_round_up
 from .func_2_smt import SMT96_Aisc_Base, func_to_32bit_smt
 
 
-class HardwareConfig():
+class Compiler40nmSNN():
     def __init__(self, config, neuron_num, net) -> None:
         self.npu_neuron_num = config['Npu_NeuronNum']
         self.chip_npu_num = config['Tile_NpuNum']
         self.npu_num = div_round_up(neuron_num, self.npu_neuron_num)
         self.chip_num = div_round_up(self.npu_num, self.chip_npu_num)
+        print(f'chip num = {self.chip_num}, npu_num = {self.npu_num}')
         self.ndma_staddr = 256 * (16 * (self.chip_num-1) + self.chip_npu_num)
 
         self.neuron_num = neuron_num
@@ -84,12 +85,8 @@ class HardwareConfig():
 
         return self.smt_result
 
-    def dump(self, save_dir):
+    def write_to_bin(self, save_dir):
         """Write hardware related to bin files
-
-        Parameters
-        ----------
-        save_dir : Path
         """
         save_dir = Path(save_dir)
 
@@ -187,7 +184,7 @@ class HardwareConfig():
             output_dir.mkdir(exist_ok=True, parents=True)
             for tile_id in range(self.chip_num):
                 # FIXME, not necessary to write hex files
-                hex_file_path = output_dir / f'smt.hex'
+                # hex_file_path = output_dir / f'smt.hex'
                 bin_file_path = output_dir / f'smt_{tile_id}.bin'
                 if bin_file_path.exists():
                     bin_file_path.unlink()
@@ -207,9 +204,9 @@ class HardwareConfig():
                         padding = ['\\n'.join(['0' * 8])]
                         hex_data.extend(hex_parts + padding)
 
-                    with open(bin_file_path, 'ab') as f_out, open(hex_file_path, 'wt') as f_tmp:
-                        for item in hex_data:
-                            data_val = int(item, 16)
-                            data_arr = np.array([data_val])
-                            data_arr.astype("<u4").T.tofile(f_out)
-                            f_tmp.write(item + '\n')
+                    # with open(bin_file_path, 'ab') as f_out, open(hex_file_path, 'wt') as f_tmp:
+                    #     for item in hex_data:
+                    #         data_val = int(item, 16)
+                    #         data_arr = np.array([data_val])
+                    #         data_arr.astype("<u4").T.tofile(f_out)
+                    #         f_tmp.write(item + '\n')

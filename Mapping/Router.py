@@ -4,8 +4,6 @@
 # @Date: 2023-12-10
 
 
-import os
-import sys
 from pathlib import Path
 
 import numpy as np
@@ -308,7 +306,7 @@ class Router():
             self.npu_flows_to_chips[src_npu] = list(
                 set(self.npu_flows_to_chips[src_npu]))
 
-        print(f'npu_flows_to_chips: {self.npu_flows_to_chips}')
+        # print(f'npu_flows_to_chips: {self.npu_flows_to_chips}')
 
         return self.npu_flows_to_chips
 

@@ -264,6 +264,8 @@ class SMT96_Aisc_Base:
             38: R_zero0 = SRAM[0], R_neu_en = SRAM[1], R_TLASTSP_TMP0 = SRAM[2], R_V = SRAM[3], R_g1 = SRAM[4], R_g2 = SRAM[5], R_ZERO_REG = SRAM[6], R_ZERO_REG = SRAM[7]
         """
 
+        print(pre_func)
+
         pre_func_stmts = list(SMT96.create_from_expr(
             pre_func, regs=v_compiler.regs))
 

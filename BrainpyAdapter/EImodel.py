@@ -35,9 +35,9 @@ class EINet(bp.Network):
         self.I2I_g = []
 
         # neurons
-        self.V_reset = -60
-        self.V_rest = -60
-        self.V_thresh = -50
+        self.V_reset = -60.0
+        self.V_rest = -60.0
+        self.V_thresh = -50.0
         self.tau = 20.0
         self.tar_ref = 5.0
         E_pars = dict(V_rest=self.V_rest, V_th=self.V_thresh,
@@ -48,8 +48,8 @@ class EINet(bp.Network):
         I = LIF(num_inh, **I_pars, method=method)
 
         # 固定所有膜电位初始值为-60
-        E.V.value = bp.math.zeros(num_exc) - self.V_reset
-        I.V.value = bp.math.zeros(num_inh) - self.V_reset
+        E.V.value = bp.math.zeros(num_exc) + self.V_reset
+        I.V.value = bp.math.zeros(num_inh) + self.V_reset
 
         # synapses
         self.E_E = 0.0
